@@ -1,0 +1,28 @@
+format = '$os$all$fill$cmd_duration$fill$time$line_break$aws$gcloud$line_break$character'
+
+[gcloud]
+symbol = "  "
+disabled = false
+
+[cmd_duration]
+min_time = 1_000
+show_notifications = true
+
+[fill]
+symbol = '―'
+style = 'bright green'
+
+[os]
+disabled = false
+
+[sudo]
+disabled = false
+
+[terraform]
+format = '[$symbol$version $workspace]($style) '
+
+[time]
+disabled = false
+format = '[ \[ $time \]]($style) '
+time_format = '%T'
+utc_time_offset = '-5'
