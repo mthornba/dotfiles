@@ -2,17 +2,26 @@
 
 SHELL=/bin/bash
 
-.PHONY: clean stow nerd
+style = nerd
+starship = $(shell command -v starship)
 
-nerd: src/starship.base stow
-	rm -f $@
+.PHONY: clean distclean
+
+.config/starship.toml: src/starship.toml tmp/$(style) | .config
+	cat src/starship.toml tmp/$(style) > $@
+
+tmp/nerd: src/starship.toml | tmp
 	echo -e "\n# Nerd Font Symbols\n" > $@
 	/usr/local/bin/starship preset nerd-font-symbols >> $@
-	cat src/starship.base $@ > .config/starship.toml
-	rm -f $@
 
-stow:
+.config:
 	mkdir -p .config
 
+tmp:
+	mkdir -p tmp
+
 clean:
-	rm -rf .config
+	-rm -r tmp
+
+distclean: clean
+	-rm -r .config
