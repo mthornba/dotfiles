@@ -5,7 +5,6 @@ SHELL=/bin/bash
 .PHONY: all distclean
 
 targets = .zshenv .zshrc
-os = $(shell uname)
 
 all: $(targets)
 
