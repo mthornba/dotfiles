@@ -1,0 +1,126 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+export EDITOR=vim
+export XDG_CONFIG_HOME="$HOME/.config"
+export KUBECONFIG="$HOME/.kube/config:$HOME/.kube/config.bp2"
+export ZGEN_RESET_ON_CHANGE=(${HOME}/.zshrc)
+export BUKU_COLORS=FCexd
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=10
+
+# Load keys into ssh-agent
+eval $(keychain --quiet --eval id_rsa)
+
+# Aliases
+alias catimg='img2sixel -p 16 -h 128 '
+alias tf=terraform
+alias wiki='vim -c VimwikiIndex'
+alias diary='vim -c "exe \"normal\" 2 . \"\\\\wi\""'
+alias fuku='BROWSER=firefox buku -o'
+alias b='buku --np'
+alias aws="docker run --rm -it -v ~/.aws:/root/.aws -v $(pwd):/aws amazon/aws-cli"
+
+# Functions
+function csdiff () { sdiff -w $(stty size | awk '{print $NF}') $@ | colordiff; }
+# Strip final EOL from a file
+function chompeol () { printf %s "$(cat $1)" > $1 }
+function tf-docs () {
+  docker run --rm -v `pwd`:`pwd` -w `pwd` quay.io/terraform-docs/terraform-docs:0.14.0 "$@"
+}
+function ipa () {
+  awk '/([0-9]{1,3}\.){3}[0-9]{1,3}/ {
+    split($2, ary, /\//)
+    ip = ary[1]
+    if (ip != "127.0.0.1") {
+      print ip
+    }
+  }' <(ip -4 a)
+}
+
+PATH=~/.local/bin:$PATH
+
+eval "$(thefuck --alias fuck)"
+
+# The following lines were added by compinstall
+#zstyle :compinstall filename '/home/matt/.zshrc'
+#
+#autoload -Uz compinit
+#compinit
+# End of lines added by compinstall
+# Lines configured by zsh-newuser-install
+# End of lines configured by zsh-newuser-install
+
+source /home/matt/.zgen/zgen.zsh
+    if ! zgen saved; then
+      # specify plugins here
+
+#      zgen load zsh-users/zsh-syntax-highlighting
+      zgen load zdharma/fast-syntax-highlighting
+      zgen load zsh-users/zsh-history-substring-search
+      zgen load zsh-users/zsh-autosuggestions
+      zgen load berkshelf/berkshelf-zsh-plugin
+      zgen load pelletiermaxime/test-kitchen-zsh-plugin
+      zgen load mdumitru/git-aliases
+      zgen load marzocchi/zsh-notify
+      zgen load joel-porquet/zsh-dircolors-solarized
+      zgen load zdharma/zsh-diff-so-fancy
+      zgen load jimeh/zsh-peco-history
+
+      # themes
+      zgen load romkatv/powerlevel10k powerlevel10k
+
+      # generate the init script from plugins above
+      zgen save
+    fi
+
+source /usr/share/zsh/vendor-completions/_tmuxinator
+alias mux=tmuxinator
+
+if [ -n "$XTERM_VERSION" ]; then
+  export TERM=xterm-256color
+  compton-trans -w "$WINDOWID" 95 >/dev/null
+fi
+
+# Set ruby paths from ChefDK
+# eval "$(chef shell-init zsh)"
+
+# Go
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:/usr/local/go/bin
+
+# set dircolors
+#eval `dircolors /home/matt/public/dircolors-solarized/dircolors.256dark`
+
+# k8s & helm completion
+source <(kubectl completion zsh)
+#source <(helm completion zsh)
+# https://github.com/helm/helm/issues/5046#issuecomment-463576351
+source <(helm completion zsh | sed -E 's/\["(.+)"\]/\[\1\]/g')
+source <(minikube completion zsh)
+
+# rbenv
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+
+bindkey -v
+#bindkey -M vicmd 'k' history-substring-search-up
+#bindkey -M vicmd 'j' history-substring-search-down
+bindkey -M vicmd '^[OA' history-substring-search-up
+bindkey -M vicmd '^[OB' history-substring-search-down
+bindkey -M viins '^[OA' history-substring-search-up
+bindkey -M viins '^[OB' history-substring-search-down
+
+setopt histignorealldups sharehistory
+
+# Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
+HISTSIZE=1000
+SAVEHIST=1000
+HISTFILE=~/.zsh_history
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
