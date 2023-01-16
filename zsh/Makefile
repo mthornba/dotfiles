@@ -2,7 +2,15 @@
 
 SHELL=/bin/bash
 
+.PHONY: all distclean
+
+targets = .zshenv .zshrc
 os = $(shell uname)
 
-.zshrc:
-	cat src/common/zshrc src/$(os)/zshrc >$@
+all: $(targets)
+
+$(targets):
+	$(shell ./build.py $@)
+
+distclean:
+	-rm $(targets)
