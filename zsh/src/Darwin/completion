@@ -1,0 +1,7 @@
+# If homebrew is installed, add autocompletions
+if type brew &>/dev/null
+then
+  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+fi
+
+source "$(brew --prefix)/etc/bash_completion.d/az"

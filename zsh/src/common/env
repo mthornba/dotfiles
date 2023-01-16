@@ -1,0 +1,8 @@
+export ZLE_RPROMPT_INDENT=0
+
+export EDITOR=vim
+export XDG_CONFIG_HOME="$HOME/.config"
+export BUKU_COLORS=FCexd
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=10
+
+PATH=~/.local/bin:$PATH
