@@ -2,11 +2,13 @@
 
 SHELL=/bin/bash
 
-.PHONY: all distclean
+.PHONY: all clean distclean
 
 targets = .zshenv .zshrc
 
-all: $(targets)
+all: distclean $(targets)
+
+clean: distclean
 
 $(targets):
 	$(shell ./build.py $@)
