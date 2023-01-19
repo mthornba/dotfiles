@@ -1,0 +1,6 @@
+# Load keys into ssh-agent
+eval $(keychain --quiet --eval id_rsa)
+
+# set dircolors
+#eval `dircolors /home/matt/public/dircolors-solarized/dircolors.256dark`
+

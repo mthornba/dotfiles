@@ -1,53 +1,60 @@
-## Header
+# Header
 
 {% include "common/header" %}
 
 {% include "Darwin/header" if os=="Darwin" ignore missing %}
 {% include "Linux/header" if os=="Linux" ignore missing %}
 
-## Environment Variables
+# Environment Variables
 
 {% include "common/env" %}
 
 {% include "Darwin/env" if os=="Darwin" ignore missing %}
 {% include "Linux/env" if os=="Linux" ignore missing %}
 
-## Aliases
+# Aliases
 
 {% include "common/alias" %}
 
 {% include "Darwin/alias" if os=="Darwin" ignore missing %}
 {% include "Linux/alias" if os=="Linux" ignore missing %}
 
-## Functions
+# Functions
 
 {% include "common/function" %}
 
 {% include "Darwin/function" if os=="Darwin" ignore missing %}
 {% include "Linux/function" if os=="Linux" ignore missing %}
 
-## Plugins
+# Plugins
+
+{% include "common/plugin" %}
 
 {% include "Darwin/plugin" if os=="Darwin" ignore missing %}
 {% include "Linux/plugin" if os=="Linux" ignore missing %}
 
-{% include "common/plugin" %}
-
-## History
+# History
 
 {% include "common/history" %}
 
 {% include "Darwin/history" if os=="Darwin" ignore missing %}
 {% include "Linux/history" if os=="Linux" ignore missing %}
 
-## Completions
+# Completions
 
 {% include "common/completion" %}
 
 {% include "Darwin/completion" if os=="Darwin" ignore missing %}
 {% include "Linux/completion" if os=="Linux" ignore missing %}
 
-## Footer
+# Software & Tools
+
+{% include "common/software" %}
+
+{% include "Darwin/software" if os=="Darwin" ignore missing %}
+{% include "Linux/software" if os=="Linux" ignore missing %}
+
+# Footer
 
 {% include "common/footer" %}
 

@@ -2,6 +2,6 @@
 if type brew &>/dev/null
 then
   FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+  source "$(brew --prefix)/etc/bash_completion.d/az"
 fi
 
-source "$(brew --prefix)/etc/bash_completion.d/az"

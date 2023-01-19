@@ -1,0 +1,5 @@
+alias catimg='img2sixel -p 16 -h 128 '
+alias wiki='vim -c VimwikiIndex'
+alias diary='vim -c "exe \"normal\" 2 . \"\\\\wi\""'
+alias aws="docker run --rm -it -v ~/.aws:/root/.aws -v $(pwd):/aws amazon/aws-cli"
+

@@ -1,8 +1,6 @@
-alias catimg='img2sixel -p 16 -h 128 '
-alias tf=terraform
-alias tf-docs='terraform-docs'
-alias plith='pluralith'
+eval "$(thefuck --alias fuck)"
 alias b='buku --np'
+
 alias ll='lsd -l'
 alias lla='lsd -la'
 alias lst='lsd --tree'

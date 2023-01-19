@@ -1,3 +1,2 @@
 alias draw='/Applications/draw.io.app/Contents/MacOS/draw.io'
 
-eval "$(thefuck --alias fuck)"
