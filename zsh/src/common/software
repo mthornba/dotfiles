@@ -1,0 +1,32 @@
+## Kubernetes
+
+if command -v kubectl &>/dev/null; then
+  export KUBECONFIG="$HOME/.kube/config"
+  source <(kubectl completion zsh)
+fi
+
+if command -v helm &>/dev/null; then
+  source <(helm completion zsh)
+  # https://github.com/helm/helm/issues/5046#issuecomment-463576351
+  source <(helm completion zsh | sed -E 's/\["(.+)"\]/\[\1\]/g')
+fi
+
+if command -v minikube &>/dev/null; then
+  source <(minikube completion zsh)
+fi
+
+## tmux
+
+if command -v tmuxinator &>/dev/null; then
+  source /usr/share/zsh/vendor-completions/_tmuxinator
+  alias mux=tmuxinator
+fi
+
+## terraform
+
+terraform=$(command -v terraform)
+if [ "x${terraform}" != "x" ]; then
+  complete -o nospace -C ${terraform} terraform
+  alias tf=${terraform}
+fi
+
