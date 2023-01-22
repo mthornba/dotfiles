@@ -1,5 +1,5 @@
 Makefile
-src/
+src
 build.py
 .gitignore
 .*\.swp
