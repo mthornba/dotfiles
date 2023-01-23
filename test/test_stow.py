@@ -1,6 +1,7 @@
-import os
+import os, pytest
 
 cwd = os.getcwd()
+stowPath = '~'
 
 def pathExists(filename):
   fqFilename = os.path.expanduser(filename)
@@ -11,19 +12,17 @@ def pathIsLink(filename):
   return os.path.islink(fqFilename)
 
 class TestZsh:
-  def test_zshrc(self):
-    assert pathIsLink('~/.zshrc') == True
+  filesExist = [ '.zshrc', '.zshenv' ]
+  filesNoExist = os.listdir(os.path.join(cwd,'zsh'))
+  for filename in filesExist:
+    filesNoExist.remove(filename)
 
-  def test_zshenv(self):
-    filename = '~/.zshenv'
-    assert pathIsLink(filename) == True
+  @pytest.mark.parametrize("filename", filesExist)
+  @pytest.mark.parametrize("stowPath", stowPath)
+  def test_exists(self, stowPath, filename):
+    assert pathIsLink(os.path.join(stowPath, filename)) == True
 
-  def test_not_exist(self):
-    stowPath = '~'
-    filesExist = [ '.zshrc', '.zshenv' ]
-    filesNoExist = os.listdir(os.path.join(cwd,'zsh'))
-    for file in filesExist:
-      filesNoExist.remove(file)
-
-    for filename in filesNoExist:
-      assert not pathExists(os.path.join(stowPath, filename)) == True
+  @pytest.mark.parametrize("filename", filesNoExist)
+  @pytest.mark.parametrize("stowPath", stowPath)
+  def test_not_exist(self, stowPath, filename):
+    assert not pathExists(os.path.join(stowPath, filename)) == True
