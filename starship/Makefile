@@ -2,26 +2,25 @@
 
 SHELL=/bin/bash
 
+targets = .config/starship.toml
 style = nerd
-starship = $(shell command -v starship)
 
 .PHONY: clean distclean
 
-.config/starship.toml: src/starship.toml tmp/$(style) | .config
-	cat src/starship.toml tmp/$(style) > $@
+all: $(targets) clean
 
-tmp/nerd: src/starship.toml | tmp
+$(targets): src/starship.toml $(style) | .config
+	cat src/starship.toml $(style) > $@
+
+nerd:
 	echo -e "\n# Nerd Font Symbols\n" > $@
-	/usr/local/bin/starship preset nerd-font-symbols >> $@
+	$(shell command -v starship) preset nerd-font-symbols >> $@
 
 .config:
-	mkdir -p .config
-
-tmp:
-	mkdir -p tmp
+	mkdir -p $@
 
 clean:
-	-rm -r tmp
+	-rm $(style)
 
 distclean: clean
 	-rm -r .config
