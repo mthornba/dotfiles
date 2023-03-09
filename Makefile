@@ -1,6 +1,6 @@
 #!/usr/bin/make -f
 
-packages = starship zsh
+packages = kitty starship zsh
 distclean_pkgs = cd $(pkg) && $(MAKE) distclean && cd ..;
 
 .PHONY: all check config distclean install uninstall $(packages)
