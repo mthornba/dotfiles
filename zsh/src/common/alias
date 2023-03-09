@@ -5,3 +5,6 @@ alias ll='lsd -l'
 alias lla='lsd -la'
 alias lst='lsd --tree'
 alias lsat='lsd -a --tree'
+
+alias icat='kitty +kitten icat'
+alias kssh='kitty +kitten ssh'
