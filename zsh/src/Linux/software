@@ -4,3 +4,11 @@ eval $(keychain --quiet --eval id_rsa)
 # set dircolors
 #eval `dircolors /home/matt/public/dircolors-solarized/dircolors.256dark`
 
+## tmux
+
+if command -v tmuxinator &>/dev/null; then
+  source /usr/share/zsh/vendor-completions/_tmuxinator
+  alias mux=tmuxinator
+fi
+
+

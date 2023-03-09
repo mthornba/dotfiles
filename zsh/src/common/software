@@ -15,13 +15,6 @@ if command -v minikube &>/dev/null; then
   source <(minikube completion zsh)
 fi
 
-## tmux
-
-if command -v tmuxinator &>/dev/null; then
-  source /usr/share/zsh/vendor-completions/_tmuxinator
-  alias mux=tmuxinator
-fi
-
 ## terraform
 
 terraform=$(command -v terraform)
