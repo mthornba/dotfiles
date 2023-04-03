@@ -5,3 +5,12 @@ alias ll='lsd -l'
 alias lla='lsd -la'
 alias lst='lsd --tree'
 alias lsat='lsd -a --tree'
+
+if type kubectl &>/dev/null
+then
+  alias k=kubectl
+  kex() {
+    POD=${1}; shift
+    kubectl exec -it ${POD} -- ${@:-sh}
+  }
+fi
