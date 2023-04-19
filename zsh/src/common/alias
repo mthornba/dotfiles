@@ -8,3 +8,13 @@ alias lsat='lsd -a --tree'
 
 alias icat='kitty +kitten icat'
 alias kssh='kitty +kitten ssh'
+
+if type kubectl &>/dev/null
+then
+  alias k=kubectl
+  kex() {
+    POD=${1}; shift
+    kubectl exec -it ${POD} -- ${@:-sh}
+  }
+fi
+
